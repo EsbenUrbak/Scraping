@@ -68,3 +68,36 @@ X = vectorizer.fit_transform(corpus)
 
 # convert sparse matrix to numpy array to view
 X.toarray()
+
+
+
+# tokenize text function:
+
+def tokenize(text):
+    # get list of all urls using regex
+    # replace each url in text string with placeholder
+    #detected_urls = []
+    #text_without_url = []
+    #for sentence in text:
+       # detected_urls_sentence = re.findall(url_regex,sentence)
+       # detected_urls.append(detected_urls_sentence)
+       # text_without_url_sentence = re.sub(url_regex,"urlplaceholder",sentence)
+       # text_without_url.append(text_without_url_sentence)
+    detected_urls_sentence = re.findall(url_regex,text)
+    text_without_url_sentence = re.sub(url_regex,"urlplaceholder",text)
+
+    #print(text_without_url_sentence)
+    # tokenize text
+    tokens = word_tokenize(text_without_url_sentence)
+    #print(tokens)
+    # initiate lemmatizer
+    lemmatizer = WordNetLemmatizer()
+
+    # iterate through each token
+    clean_tokens = []
+    for tok in tokens:
+        #print(tok)
+        # lemmatize, normalize case, and remove leading/trailing white space
+        clean_tok = re.sub(r"[^a-zA-Z0-9]", " ", lemmatizer.lemmatize(tok).lower())
+        clean_tokens.append(clean_tok)
+    return clean_tokens
